@@ -328,6 +328,8 @@ angular.scenario.dsl('select', function() {
  *    element(selector, label).count() get the number of elements that match selector
  *    element(selector, label).click() clicks an element
  *    element(selector, label).mouseover() mouseover an element
+ *    element(selector, label).mousedown() mousedown an element
+ *    element(selector, label).mouseup() mouseup an element
  *    element(selector, label).query(fn) executes fn(selectedElements, done)
  *    element(selector, label).{method}() gets the value (as defined by jQuery, ex. val)
  *    element(selector, label).{method}(value) sets the value (as defined by jQuery, ex. val)
@@ -385,12 +387,28 @@ angular.scenario.dsl('element', function() {
   };
 
   chain.mouseover = function() {
-    return this.addFutureAction("element '" + this.label + "' mouseover", function($window, $document, done) {
+    return this.addFutureAction("element XX'" + this.label + "' mouseover", function($window, $document, done) {
       var elements = $document.elements();
       elements.trigger('mouseover');
       done();
     });
   };
+
+  chain.mousedown = function() {
+      return this.addFutureAction("element '" + this.label + "' mousedown", function($window, $document, done) {
+        var elements = $document.elements();
+        elements.trigger('mousedown');
+        done();
+      });
+    };
+
+  chain.mouseup = function() {
+      return this.addFutureAction("element '" + this.label + "' mouseup", function($window, $document, done) {
+        var elements = $document.elements();
+        elements.trigger('mouseup');
+        done();
+      });
+    };
 
   chain.query = function(fn) {
     return this.addFutureAction('element ' + this.label + ' custom query', function($window, $document, done) {
